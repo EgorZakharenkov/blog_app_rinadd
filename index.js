@@ -1,9 +1,9 @@
-import express, {json} from 'express'
+import express  from 'express'
 import multer from 'multer'
 import mongoose from 'mongoose'
 import {registerValidator,loginValidator,postCreateValidation} from "./validations/auth.js";
 import {checkAuth, handleErrors} from "./utlis/index.js";
-import {PostController,UserController} from "./controllers/index.js"
+import {PostController,UserController,CommentController} from "./controllers/index.js"
 import cors from "cors"
 const app = express()
 
@@ -63,6 +63,12 @@ app.get('/posts',PostController.getAll)
 app.get('/posts/:id',PostController.getOne)
 app.delete('/posts/:id',checkAuth ,PostController.remove)
 app.patch('/posts/:id',checkAuth ,postCreateValidation,handleErrors,PostController.update)
+
+
+app.post("/comment",CommentController.createComment)
+
+app.delete("/comment/:id",CommentController.deleteComment)
+
 
 
 
